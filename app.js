@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 const path = require('path');
 const Market = require('./schemas/market');
+const Event = require('./schemas/event');
 
 
 mongoose.connect('mongodb://localhost:27017/farm_market', { useNewUrlParser: true, useUnifiedTopology: true });
@@ -29,10 +30,12 @@ app.get('/', (req, res) => {
     res.send('hello');
 });
 
-const test = "Hello World";
+const testMarket = "Hello ";
+const testEvent = "World";
+
 // All markets
 app.get('/markets', (req, res) => {
-    res.render('markets/show', { test });
+    res.render('markets/show', { testMarket, testEvent });
 });
 
 // Add market
