@@ -1,19 +1,10 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const marketSchema = new mongoose.Schema({
-    name: {
-        Type: String,
-        // required: true
-    },
-    // Change to address
-    location: {
-        Type: String,
-        // required: true
-    },
-    description: {
-        Type: String,
-        // required: true
-    }
+const marketSchema = new Schema({
+    name: String,
+    location: String,
+    description: String
 });
 
 const Market = mongoose.model('Market', marketSchema);
