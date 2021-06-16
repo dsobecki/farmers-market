@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const Market = require('./schemas/market');
+
 
 mongoose.connect('mongodb://localhost:27017/farm_market', { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
@@ -10,7 +12,11 @@ db.once('open', function () {
 });
 
 app.get('/', (req, res) => {
-    res.send("routing")
+    const detroit = new Market({ name: 'Eastern Market', location: '111 Main St', description: 'The Best in town' });
+    detroit.save(function (err, detroit) {
+        if (err) return console.log(err);
+    })
+    res.send('Saved detroit');
 })
 
 
