@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const path = require('path');
+const logger = require('morgan');
 const Market = require('./schemas/market');
 const Event = require('./schemas/event');
 
@@ -13,6 +14,9 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
     console.log("Mongoose Connected");
 });
+
+// log requests
+app.use(logger('dev'));
 
 // Register ejs as html
 app.engine('.html', require('ejs').__express);
@@ -30,12 +34,9 @@ app.get('/', (req, res) => {
     res.send('hello');
 });
 
-const testMarket = "Hello ";
-const testEvent = "World";
-
 // All markets
 app.get('/markets', (req, res) => {
-    res.render('markets/show', { testMarket, testEvent });
+    res.render('markets/show');
 });
 
 // Add market
@@ -44,5 +45,5 @@ app.post('/markets', (req, res) => {
 });
 
 app.listen(8080, () => {
-    console.log('Server Up');
+    console.log('Listening on port 8080');
 });
