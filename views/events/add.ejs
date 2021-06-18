@@ -1,0 +1,16 @@
+<% layout('boilerplate') -%>
+    <section class="container">
+        <h1 class="mx-auto" style="width: 300px;">Edit Event</h1>
+
+        <form action="/" method="post" class="container">
+            <div class="mb-3">
+                <label for="date" class="form-label">Date: </label>
+                <input type="date" class="form-control" id="date" placeholder="Event Date">
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Another label</label>
+                <textarea class="form-control" name="event[description]" id="description" cols="30"
+                    rows="10"></textarea>
+            </div>
+        </form>
+    </section>

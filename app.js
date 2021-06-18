@@ -46,31 +46,34 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/markets', (req, res) => {
     res.render('markets/show');
 });
-//              <------------ Will need to have id association
+
 // Renders Market Edit Form
-app.get('/markets/edit', (req, res) => {
+app.get('/markets/:_id/edit', (req, res) => {
     res.render('markets/edit');
 });
+
 // Adds Market
-app.post('/markets/edit', (req, res) => {
+app.post('/markets/add', (req, res) => {
     res.render('Market Added');
 });
+
 // Edits Market
-app.put('/markets/edit', (req, res) => {
+app.put('/markets/:_id/edit', (req, res) => {
     res.render('Market Edited');
 });
+
 // Deletes Market
-app.delete('/markets/edit', (req, res) => {
+app.delete('/markets/:_id/edit', (req, res) => {
     res.render('Market Deleted');
 });
 
-// All events
-app.get('/events', (req, res) => {
+// All events for a market
+app.get('/markets/:_id/events', (req, res) => {
     res.render('events/show');
 });
-//              <------------ Will need to have id association
+
 //  Render Event Edit Form
-app.get('/events/edit', (req, res) => {
+app.get('/markets/:_id/events/edit', (req, res) => {
     res.render('events/edit');
 })
 
