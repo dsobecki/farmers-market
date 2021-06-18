@@ -3,7 +3,8 @@ const app = express();
 const mongoose = require('mongoose');
 const path = require('path');
 const logger = require('morgan');
-var methodOverride = require('method-override')
+const methodOverride = require('method-override');
+const ejsMate = require('ejs-mate');
 const Market = require('./schemas/market');
 const Event = require('./schemas/event');
 
@@ -16,29 +17,30 @@ db.once('open', function () {
     console.log("Mongoose Connected");
 });
 
+app.engine('ejs', ejsMate);
+
+//                              <------------ TODO ()
+// Register ejs as html (ejsMate dose not like this)
+// app.engine('.html', require('ejs').__express);
+
+// Express defaults to CWD/views (just explicitly setting it)
+app.set('views', path.join(__dirname, 'views'));
+// res.render() no longer needs an extention
+app.set('view engine', 'ejs');
+
 // log requests
 app.use(logger('dev'));
 // override with POST having ?_method=DELETE
 app.use(methodOverride('_method'));
-
-// Register ejs as html
-app.engine('.html', require('ejs').__express);
-
-// Express defaults to CWD/views (just explicitly setting it)
-app.set('views', path.join(__dirname, 'views'));
-
 // Path to public directory
 app.use(express.static(path.join(__dirname, 'public')));
 
-// res.render() no longer needs an extention
-app.set('view engine', 'html');
-
-app.get('/', (req, res) => {
-    res.send('Home');
-});
-
 //      Routes
 // ************************
+// Home
+// app.get('/', (req, res) => {
+//     res.send('Home');
+// });
 
 // All markets
 app.get('/markets', (req, res) => {
