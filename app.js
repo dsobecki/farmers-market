@@ -35,6 +35,10 @@ app.use(methodOverride('_method'));
 // Path to public directory
 app.use(express.static(path.join(__dirname, 'public')));
 
+//          <--------- Find Docs
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
 //      Routes
 // ************************
 // Home
@@ -48,17 +52,18 @@ app.get('/markets', (req, res) => {
 });
 
 // Renders Market Edit Form
-app.get('/markets/:_id/edit', (req, res) => {
+app.get('/markets/edit', (req, res) => {
+    console.log('req.body', req.body);
     res.render('markets/edit');
 });
 
 // Adds Market
-app.post('/markets/add', (req, res) => {
-    res.render('Market Added');
+app.post('/markets/edit', (req, res) => {
+    res.send(req.body);
 });
 
 // Edits Market
-app.put('/markets/:_id/edit', (req, res) => {
+app.put('/markets/edit', (req, res) => {
     res.render('Market Edited');
 });
 
