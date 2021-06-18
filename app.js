@@ -46,6 +46,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/markets', (req, res) => {
     res.render('markets/show');
 });
+//              <------------ Will need to have id association
 // Renders Market Edit Form
 app.get('/markets/edit', (req, res) => {
     res.render('markets/edit');
@@ -62,6 +63,18 @@ app.put('/markets/edit', (req, res) => {
 app.delete('/markets/edit', (req, res) => {
     res.render('Market Deleted');
 });
+
+// All events
+app.get('/events', (req, res) => {
+    res.render('events/show');
+});
+//              <------------ Will need to have id association
+//  Render Event Edit Form
+app.get('/events/edit', (req, res) => {
+    res.render('events/edit');
+})
+
+
 // ************************
 
 app.listen(8080, () => {
