@@ -7,6 +7,7 @@ const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
 const Market = require('./schemas/market');
 const Event = require('./schemas/event');
+const { findById } = require('./schemas/market');
 
 mongoose.connect('mongodb://localhost:27017/farm_market', { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -46,8 +47,10 @@ app.get('/', (req, res) => {
 });
 
 // Show one market
-app.get('/markets', (req, res) => {
-    res.render('markets/show');
+app.get('/markets/:_id', async (req, res) => {
+    const { _id } = req.params;
+    const market = await Market.findById(_id);
+    res.render('markets/show', { market });
 });
 
 // Renders Market Add Form
@@ -57,7 +60,7 @@ app.get('/markets/add', (req, res) => {
 
 // Adds Market
 app.post('/markets/add', async (req, res) => {
-    const market = new Market(req.body);
+    const market = await new Market(req.body);
     market.save();
     res.redirect('/markets');
 });
@@ -85,6 +88,7 @@ app.get('/markets/:_id/events/edit', (req, res) => {
 
 // ************************
 
-app.listen(8080, () => {
+app.listen(8080, function (err) {
+    if (err) console.log(err);
     console.log('Listening on port 8080');
 });
