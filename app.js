@@ -8,7 +8,6 @@ const ejsMate = require('ejs-mate');
 const Market = require('./schemas/market');
 const Event = require('./schemas/event');
 
-// git test
 mongoose.connect('mongodb://localhost:27017/farm_market', { useNewUrlParser: true, useUnifiedTopology: true });
 
 const db = mongoose.connection;
@@ -41,25 +40,26 @@ app.use(express.urlencoded({ extended: true }))
 
 //      Routes
 // ************************
-Home
+// Home
+// All markets (for now)
 app.get('/', (req, res) => {
-    res.send('Home');
 });
 
-// All markets
+// Show one market
 app.get('/markets', (req, res) => {
     res.render('markets/show');
 });
 
-// Renders Market Edit Form
+// Renders Market Add Form
 app.get('/markets/add', (req, res) => {
-    console.log('req.body', req.body);
-    res.render('markets/edit');
+    res.render('markets/add');
 });
 
 // Adds Market
-app.post('/markets/edit', (req, res) => {
-    res.send(req.body);
+app.post('/markets/add', async (req, res) => {
+    const market = new Market(req.body);
+    market.save();
+    res.redirect('/markets');
 });
 
 // Edits Market
